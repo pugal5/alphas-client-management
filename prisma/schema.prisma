@@ -1,0 +1,468 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  manager
+  team_member
+  finance
+  client_viewer
+}
+
+enum ClientStatus {
+  active
+  inactive
+  prospect
+  archived
+}
+
+enum CampaignStatus {
+  planning
+  active
+  paused
+  completed
+  cancelled
+}
+
+enum CampaignType {
+  social_media
+  content_marketing
+  email_marketing
+  paid_advertising
+  seo
+  pr
+  event
+  other
+}
+
+enum TaskStatus {
+  not_started
+  in_progress
+  under_review
+  completed
+  blocked
+  cancelled
+}
+
+enum TaskPriority {
+  low
+  medium
+  high
+  urgent
+}
+
+enum InvoiceStatus {
+  draft
+  sent
+  paid
+  overdue
+  cancelled
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  partial
+  overdue
+  refunded
+}
+
+enum ExpenseStatus {
+  pending
+  approved
+  rejected
+  paid
+}
+
+enum ActivityType {
+  call
+  email
+  meeting
+  note
+  task_created
+  task_completed
+  campaign_created
+  campaign_updated
+  invoice_sent
+  payment_received
+  other
+}
+
+enum FileType {
+  image
+  document
+  video
+  audio
+  other
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password      String
+  firstName     String
+  lastName      String
+  role          UserRole @default(team_member)
+  avatar        String?
+  phone         String?
+  isActive      Boolean  @default(true)
+  emailVerified Boolean  @default(false)
+  lastLoginAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
+
+  // Relations
+  ownedClients      Client[]           @relation("ClientOwner")
+  assignedTasks     Task[]             @relation("TaskAssignee")
+  createdTasks      Task[]             @relation("TaskCreator")
+  createdCampaigns  Campaign[]         @relation("CampaignCreator")
+  assignedCampaigns Campaign[]         @relation("CampaignAssignee")
+  createdInvoices   Invoice[]          @relation("InvoiceCreator")
+  createdExpenses   Expense[]          @relation("ExpenseCreator")
+  approvedExpenses  Expense[]           @relation("ExpenseApprover")
+  activities        Activity[]
+  notifications     Notification[]
+  notificationPreferences NotificationPreference? @relation("NotificationPreferences")
+  auditLogs         AuditLog[]
+  files             File[]
+
+  @@index([email])
+  @@index([role])
+  @@index([isActive])
+  @@map("users")
+}
+
+model Client {
+  id              String       @id @default(uuid())
+  name            String
+  industry        String?
+  website         String?
+  address         String?
+  city            String?
+  state           String?
+  zipCode         String?
+  country         String?
+  phone           String?
+  email           String?
+  status          ClientStatus @default(prospect)
+  contractValue   Decimal?     @db.Decimal(12, 2)
+  contractStart   DateTime?
+  contractEnd     DateTime?
+  notes           String?      @db.Text
+  ownerId         String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  deletedAt       DateTime?
+
+  // Relations
+  owner      User            @relation("ClientOwner", fields: [ownerId], references: [id])
+  contacts   ClientContact[]
+  campaigns  Campaign[]
+  invoices   Invoice[]
+  activities Activity[]
+  files      File[]
+
+  @@index([ownerId])
+  @@index([status])
+  @@index([name])
+  @@map("clients")
+}
+
+model ClientContact {
+  id        String   @id @default(uuid())
+  clientId  String
+  firstName String
+  lastName  String
+  email     String?
+  phone     String?
+  title     String?
+  isPrimary Boolean  @default(false)
+  notes     String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@map("client_contacts")
+}
+
+model Campaign {
+  id              String         @id @default(uuid())
+  clientId        String
+  name            String
+  type            CampaignType
+  status          CampaignStatus @default(planning)
+  description     String?        @db.Text
+  budget          Decimal?       @db.Decimal(12, 2)
+  actualSpend     Decimal?       @db.Decimal(12, 2) @default(0)
+  startDate       DateTime?
+  endDate         DateTime?
+  kpiTarget       String?        @db.Text
+  kpiActual       String?        @db.Text
+  notes           String?        @db.Text
+  createdById     String
+  assignedToId    String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  deletedAt       DateTime?
+
+  // Relations
+  client     Client      @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  creator    User        @relation("CampaignCreator", fields: [createdById], references: [id])
+  assignedTo User?       @relation("CampaignAssignee", fields: [assignedToId], references: [id])
+  tasks      Task[]
+  activities Activity[]
+  files      File[]
+
+  @@index([clientId])
+  @@index([status])
+  @@index([createdById])
+  @@index([assignedToId])
+  @@map("campaigns")
+}
+
+model Task {
+  id            String       @id @default(uuid())
+  campaignId    String?
+  title         String
+  description   String?      @db.Text
+  status        TaskStatus   @default(not_started)
+  priority      TaskPriority @default(medium)
+  dueDate       DateTime?
+  startDate     DateTime?
+  completedDate DateTime?
+  estimatedHours Decimal?    @db.Decimal(8, 2)
+  actualHours   Decimal?     @db.Decimal(8, 2)
+  assignedToId  String?
+  createdById   String
+  notes         String?      @db.Text
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  deletedAt     DateTime?
+
+  // Relations
+  campaign         Campaign?          @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  assignedTo       User?              @relation("TaskAssignee", fields: [assignedToId], references: [id])
+  creator          User               @relation("TaskCreator", fields: [createdById], references: [id])
+  dependencies     TaskDependency[]    @relation("TaskDependencies")
+  dependents       TaskDependency[]    @relation("TaskDependents")
+  activities       Activity[]
+  files            File[]
+
+  @@index([campaignId])
+  @@index([status])
+  @@index([assignedToId])
+  @@index([createdById])
+  @@index([dueDate])
+  @@map("tasks")
+}
+
+model TaskDependency {
+  id          String   @id @default(uuid())
+  taskId      String
+  dependsOnId String
+  type        String   @default("finish_to_start") // finish_to_start, start_to_start, finish_to_finish, start_to_finish
+  createdAt   DateTime @default(now())
+
+  task      Task @relation("TaskDependencies", fields: [taskId], references: [id], onDelete: Cascade)
+  dependsOn Task @relation("TaskDependents", fields: [dependsOnId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, dependsOnId])
+  @@index([taskId])
+  @@index([dependsOnId])
+  @@map("task_dependencies")
+}
+
+model Invoice {
+  id              String        @id @default(uuid())
+  clientId        String
+  invoiceNumber   String        @unique
+  status          InvoiceStatus @default(draft)
+  issueDate       DateTime      @default(now())
+  dueDate         DateTime
+  paidDate        DateTime?
+  subtotal        Decimal       @db.Decimal(12, 2)
+  tax             Decimal?      @db.Decimal(12, 2) @default(0)
+  discount        Decimal?      @db.Decimal(12, 2) @default(0)
+  total           Decimal       @db.Decimal(12, 2)
+  paymentStatus   PaymentStatus @default(pending)
+  notes           String?       @db.Text
+  createdById     String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
+
+  // Relations
+  client     Client     @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  creator    User       @relation("InvoiceCreator", fields: [createdById], references: [id])
+  activities Activity[]
+
+  @@index([clientId])
+  @@index([status])
+  @@index([invoiceNumber])
+  @@index([dueDate])
+  @@map("invoices")
+}
+
+model Expense {
+  id          String       @id @default(uuid())
+  description String
+  amount      Decimal      @db.Decimal(12, 2)
+  category   String?
+  status      ExpenseStatus @default(pending)
+  receiptUrl String?
+  expenseDate DateTime     @default(now())
+  notes       String?      @db.Text
+  createdById String
+  approvedById String?
+  approvedAt  DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   DateTime?
+
+  // Relations
+  creator   User  @relation("ExpenseCreator", fields: [createdById], references: [id])
+  approver  User? @relation("ExpenseApprover", fields: [approvedById], references: [id])
+
+  @@index([status])
+  @@index([createdById])
+  @@index([approvedById])
+  @@map("expenses")
+}
+
+model Activity {
+  id          String       @id @default(uuid())
+  type        ActivityType
+  title       String
+  description String?      @db.Text
+  userId      String
+  clientId    String?
+  campaignId  String?
+  taskId      String?
+  invoiceId   String?
+  metadata    Json?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id])
+  client   Client?   @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  campaign Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  task     Task?     @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  invoice  Invoice?  @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([clientId])
+  @@index([campaignId])
+  @@index([taskId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("activities")
+}
+
+model File {
+  id          String   @id @default(uuid())
+  filename    String
+  originalName String
+  mimeType    String
+  size        Int
+  type        FileType
+  url         String
+  userId      String
+  clientId    String?
+  campaignId  String?
+  taskId      String?
+  version     Int      @default(1)
+  parentId    String?  // For file versioning
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id])
+  client   Client?   @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  campaign Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  task     Task?     @relation(fields: [taskId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([clientId])
+  @@index([campaignId])
+  @@index([taskId])
+  @@index([type])
+  @@map("files")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  title     String
+  message   String   @db.Text
+  link      String?
+  read      Boolean  @default(false)
+  readAt    DateTime?
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([read])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model NotificationPreference {
+  id      String @id @default(uuid())
+  userId  String @unique
+  email   Boolean @default(true)
+  inApp   Boolean @default(true)
+  push    Boolean @default(false)
+  taskAssigned Boolean @default(true)
+  taskDeadline Boolean @default(true)
+  taskOverdue Boolean @default(true)
+  campaignUpdate Boolean @default(true)
+  invoiceSent Boolean @default(true)
+  invoiceOverdue Boolean @default(true)
+  paymentReceived Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation("NotificationPreferences", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notification_preferences")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String
+  changes   Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([entity, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
