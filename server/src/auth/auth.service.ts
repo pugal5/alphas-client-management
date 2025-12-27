@@ -48,23 +48,37 @@ export class AuthService {
   }
 
   async storeRefreshToken(userId: string, token: string): Promise<void> {
+    if (!redisClient) {
+      console.warn('Redis not available: refresh token not stored');
+      return;
+    }
     const expiresIn = 7 * 24 * 60 * 60; // 7 days in seconds
     await redisClient.setEx(`refresh_token:${userId}`, expiresIn, token);
   }
 
   async getRefreshToken(userId: string): Promise<string | null> {
+    if (!redisClient) {
+      console.warn('Redis not available: refresh token not retrieved');
+      return null;
+    }
     return redisClient.get(`refresh_token:${userId}`);
   }
 
   async removeRefreshToken(userId: string): Promise<void> {
+    if (!redisClient) return;
     await redisClient.del(`refresh_token:${userId}`);
   }
 
   async blacklistToken(token: string, expiresIn: number): Promise<void> {
+    if (!redisClient) {
+      console.warn('Redis not available: token not blacklisted');
+      return;
+    }
     await redisClient.setEx(`blacklist:${token}`, expiresIn, '1');
   }
 
   async isTokenBlacklisted(token: string): Promise<boolean> {
+    if (!redisClient) return false;
     const result = await redisClient.get(`blacklist:${token}`);
     return result === '1';
   }
