@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
-import { webSocketService } from './websocket/websocket.service';
+import { webSocketService } from './websocket/websocket.service.js';
 
 dotenv.config();
 
@@ -33,15 +33,15 @@ app.get('/health', (_req, res) => {
 });
 
 // Routes
-import authRoutes from './auth/auth.routes';
-import clientsRoutes from './clients/clients.routes';
-import campaignsRoutes from './campaigns/campaigns.routes';
-import tasksRoutes from './tasks/tasks.routes';
-import invoicesRoutes from './invoices/invoices.routes';
-import expensesRoutes from './expenses/expenses.routes';
-import notificationsRoutes from './notifications/notifications.routes';
-import filesRoutes from './files/files.routes';
-import analyticsRoutes from './analytics/analytics.routes';
+import authRoutes from './auth/auth.routes.js';
+import clientsRoutes from './clients/clients.routes.js';
+import campaignsRoutes from './campaigns/campaigns.routes.js';
+import tasksRoutes from './tasks/tasks.routes.js';
+import invoicesRoutes from './invoices/invoices.routes.js';
+import expensesRoutes from './expenses/expenses.routes.js';
+import notificationsRoutes from './notifications/notifications.routes.js';
+import filesRoutes from './files/files.routes.js';
+import analyticsRoutes from './analytics/analytics.routes.js';
 app.use('/api/auth', authRoutes);
 app.use('/api/clients', clientsRoutes);
 app.use('/api/campaigns', campaignsRoutes);
