@@ -76,7 +76,7 @@ powershell -ExecutionPolicy Bypass -File scripts/setup-git.ps1
    - **Language/Runtime**: `Docker` (Render will auto-detect Docker)
    
 4. **Advanced Settings** (Click "Advanced" to expand):
-   - **Docker Build Context Directory**: `server/`
+   - **Docker Build Context Directory**: `/` (root directory - needed to access prisma schema)
    - **Dockerfile Path**: `server/Dockerfile`
    - **Docker Command**: Leave empty (Dockerfile already has CMD) OR use `node dist/index.js`
    - **Health Check Path**: `/healthz`

@@ -4,16 +4,18 @@ FROM node:20-alpine AS base
 # Install dependencies
 FROM base AS deps
 WORKDIR /app
-COPY package.json package-lock.json ./
+COPY server/package.json server/package-lock.json ./
 RUN npm ci
 
 # Build
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY package.json ./
-COPY tsconfig.json ./
-COPY src ./src
+COPY server/package.json ./
+COPY server/tsconfig.json ./
+COPY server/src ./src
+COPY prisma ./prisma
+RUN npx prisma generate
 RUN npm run build
 
 # Production
@@ -27,7 +29,7 @@ RUN adduser --system --uid 1001 nodejs
 
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
-COPY package.json ./
+COPY server/package.json ./
 
 USER nodejs
 
