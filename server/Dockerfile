@@ -1,4 +1,7 @@
 # Backend Dockerfile
+# This Dockerfile works with ROOT directory as build context
+# Make sure Render's "Docker Build Context Directory" is set to "/" (root)
+
 FROM node:20-alpine AS base
 
 # Install dependencies
