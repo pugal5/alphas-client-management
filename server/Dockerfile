@@ -5,10 +5,7 @@
 FROM node:20-alpine AS base
 
 # Install OpenSSL for Prisma
-# Prisma needs OpenSSL 1.1, install from edge repository
-RUN apk add --no-cache openssl || \
-    (apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main openssl1.1-compat || \
-     apk add --no-cache openssl)
+RUN apk add --no-cache openssl
 
 # Install dependencies
 FROM base AS deps
@@ -35,10 +32,7 @@ WORKDIR /app
 ENV NODE_ENV production
 
 # Install OpenSSL for Prisma (needed in production too)
-# Prisma needs OpenSSL 1.1, install from edge repository
-RUN apk add --no-cache openssl || \
-    (apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main openssl1.1-compat || \
-     apk add --no-cache openssl)
+RUN apk add --no-cache openssl
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nodejs
