@@ -73,9 +73,15 @@ powershell -ExecutionPolicy Bypass -File scripts/setup-git.ps1
    - **Region**: Choose closest
    - **Branch**: `main`
    - **Root Directory**: `server`
-   - **Runtime**: `Node`
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `npm start`
+   - **Language/Runtime**: `Docker` (Render will auto-detect Docker)
+   
+4. **Advanced Settings** (Click "Advanced" to expand):
+   - **Docker Build Context Directory**: `server/`
+   - **Dockerfile Path**: `server/Dockerfile`
+   - **Docker Command**: Leave empty (Dockerfile already has CMD) OR use `node dist/index.js`
+   - **Health Check Path**: `/healthz`
+   
+   ⚠️ **Note**: For Docker deployments, you DON'T need Build Command or Start Command fields - Docker handles this automatically via the Dockerfile.
 
 4. **Environment Variables** (Click "Add Environment Variable"):
    

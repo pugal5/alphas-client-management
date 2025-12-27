@@ -4,15 +4,15 @@ FROM node:20-alpine AS base
 # Install dependencies
 FROM base AS deps
 WORKDIR /app
-COPY server/package.json server/package-lock.json* ./
+COPY package.json package-lock.json* ./
 RUN npm ci
 
 # Build
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY server/tsconfig.json ./
-COPY server/src ./src
+COPY tsconfig.json ./
+COPY src ./src
 RUN npm run build
 
 # Production
@@ -26,7 +26,7 @@ RUN adduser --system --uid 1001 nodejs
 
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
-COPY server/package.json ./
+COPY package.json ./
 
 USER nodejs
 
