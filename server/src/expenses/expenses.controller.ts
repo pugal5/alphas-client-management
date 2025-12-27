@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { expensesService } from './expenses.service';
 import { AuthRequest } from '../middleware/auth.middleware';
 import { z } from 'zod';

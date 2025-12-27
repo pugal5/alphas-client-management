@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { analyticsService } from './analytics.service';
 import { AuthRequest } from '../middleware/auth.middleware';
 

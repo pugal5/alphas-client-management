@@ -50,9 +50,6 @@ export class AnalyticsService {
               where: {
                 deletedAt: null,
                 paymentStatus: 'paid',
-                campaign: {
-                  id: { not: null },
-                },
               },
               select: {
                 total: true,
@@ -64,7 +61,7 @@ export class AnalyticsService {
     });
 
     return campaigns.map((campaign) => {
-      const revenue = campaign.client.invoices.reduce((sum, inv) => sum + Number(inv.total), 0);
+      const revenue = campaign.client.invoices.reduce((sum: number, inv: { total: any }) => sum + Number(inv.total), 0);
       const spend = campaign.actualSpend ? Number(campaign.actualSpend) : 0;
       const roi = spend > 0 ? ((revenue - spend) / spend) * 100 : 0;
 

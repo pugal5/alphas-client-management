@@ -62,7 +62,7 @@ class WebSocketService {
     socket.join(`user:${user.userId}`);
 
     // Emit user online status
-    this.emitToRoom('user:online', { userId: user.userId, email: user.email });
+    this.emitToRoom(`user:${user.userId}`, 'user:online', { userId: user.userId, email: user.email });
 
     // Handle disconnection
     socket.on('disconnect', () => {
@@ -91,7 +91,7 @@ class WebSocketService {
       if (userSockets.size === 0) {
         this.userSockets.delete(userId);
         // Emit user offline status
-        this.emitToRoom('user:offline', { userId });
+        this.emitToRoom(`user:${userId}`, 'user:offline', { userId });
       }
     }
     this.connectedUsers.delete(socket.id);

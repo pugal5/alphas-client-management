@@ -64,7 +64,7 @@ export class RBACService {
     userId: string,
     role: UserRole,
     clientId: string,
-    action: Action
+    _action: Action
   ): Promise<boolean> {
     if (role === UserRole.admin || role === UserRole.manager) {
       return true;
@@ -72,7 +72,7 @@ export class RBACService {
 
     if (role === UserRole.client_viewer) {
       // Client viewers can only access their own client
-      const client = await prisma.client.findUnique({
+      await prisma.client.findUnique({
         where: { id: clientId },
         select: { ownerId: true },
       });
@@ -93,7 +93,7 @@ export class RBACService {
     userId: string,
     role: UserRole,
     campaignId: string,
-    action: Action
+    _action: Action
   ): Promise<boolean> {
     if (role === UserRole.admin || role === UserRole.manager) {
       return true;
@@ -111,7 +111,7 @@ export class RBACService {
     userId: string,
     role: UserRole,
     taskId: string,
-    action: Action
+    _action: Action
   ): Promise<boolean> {
     if (role === UserRole.admin || role === UserRole.manager) {
       return true;
@@ -129,7 +129,7 @@ export class RBACService {
     userId: string,
     role: UserRole,
     invoiceId: string,
-    action: Action
+    _action: Action
   ): Promise<boolean> {
     if (role === UserRole.admin || role === UserRole.finance) {
       return true;
@@ -137,7 +137,7 @@ export class RBACService {
 
     if (role === UserRole.client_viewer) {
       // Client viewers can only see invoices for their client
-      const invoice = await prisma.invoice.findUnique({
+      await prisma.invoice.findUnique({
         where: { id: invoiceId },
         select: { clientId: true },
       });

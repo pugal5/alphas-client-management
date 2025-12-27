@@ -21,14 +21,14 @@ export class AuthService {
 
   generateAccessToken(payload: JWTPayload): string {
     return jwt.sign(payload, JWT_SECRET, {
-      expiresIn: JWT_ACCESS_EXPIRES_IN,
-    });
+      expiresIn: JWT_ACCESS_EXPIRES_IN as string,
+    } as jwt.SignOptions);
   }
 
   generateRefreshToken(payload: JWTPayload): string {
     return jwt.sign(payload, JWT_REFRESH_SECRET, {
-      expiresIn: JWT_REFRESH_EXPIRES_IN,
-    });
+      expiresIn: JWT_REFRESH_EXPIRES_IN as string,
+    } as jwt.SignOptions);
   }
 
   async verifyAccessToken(token: string): Promise<JWTPayload> {
@@ -161,7 +161,7 @@ export class AuthService {
     await this.removeRefreshToken(userId);
 
     // Blacklist the refresh token
-    const payload = await this.verifyRefreshToken(refreshToken);
+    await this.verifyRefreshToken(refreshToken);
     const decoded = jwt.decode(refreshToken) as { exp?: number };
     if (decoded.exp) {
       const expiresIn = decoded.exp - Math.floor(Date.now() / 1000);

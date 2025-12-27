@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { filesService } from './files.service';
 import { AuthRequest } from '../middleware/auth.middleware';
 import multer from 'multer';
