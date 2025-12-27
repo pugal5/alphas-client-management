@@ -1,7 +1,7 @@
 import { Expense, Prisma } from '@prisma/client';
-import { expensesRepository, ExpenseFilters, ExpenseWithRelations } from './expenses.repository';
-import { prisma } from '../lib/prisma';
-import { rbacService } from '../rbac/rbac.service';
+import { expensesRepository, ExpenseFilters, ExpenseWithRelations } from './expenses.repository.js';
+import { prisma } from '../lib/prisma.js';
+import { rbacService } from '../rbac/rbac.service.js';
 
 export interface CreateExpenseData {
   description: string;

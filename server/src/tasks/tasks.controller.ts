@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { tasksService } from './tasks.service';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { tasksService } from './tasks.service.js';
+import { AuthRequest } from '../middleware/auth.middleware.js';
 import { z } from 'zod';
 import { TaskStatus, TaskPriority } from '@prisma/client';
 

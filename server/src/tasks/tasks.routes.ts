@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { tasksController } from './tasks.controller';
-import { authenticate } from '../middleware/auth.middleware';
-import { requirePermission } from '../rbac/rbac.middleware';
+import { tasksController } from './tasks.controller.js';
+import { authenticate } from '../middleware/auth.middleware.js';
+import { requirePermission } from '../rbac/rbac.middleware.js';
 
 const router = Router();
 

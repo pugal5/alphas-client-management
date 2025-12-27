@@ -1,5 +1,5 @@
 import { Prisma, Invoice, InvoiceStatus, PaymentStatus } from '@prisma/client';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/prisma.js';
 
 export interface InvoiceFilters {
   status?: InvoiceStatus;

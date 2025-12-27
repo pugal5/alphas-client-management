@@ -1,7 +1,7 @@
 import { Invoice, InvoiceStatus, PaymentStatus, Prisma } from '@prisma/client';
-import { invoicesRepository, InvoiceFilters, InvoiceWithRelations } from './invoices.repository';
-import { prisma } from '../lib/prisma';
-import { rbacService } from '../rbac/rbac.service';
+import { invoicesRepository, InvoiceFilters, InvoiceWithRelations } from './invoices.repository.js';
+import { prisma } from '../lib/prisma.js';
+import { rbacService } from '../rbac/rbac.service.js';
 
 export interface CreateInvoiceData {
   clientId: string;

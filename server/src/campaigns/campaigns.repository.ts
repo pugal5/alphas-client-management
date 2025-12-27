@@ -1,5 +1,5 @@
 import { Prisma, Campaign, CampaignStatus, CampaignType } from '@prisma/client';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/prisma.js';
 
 export interface CampaignFilters {
   status?: CampaignStatus;

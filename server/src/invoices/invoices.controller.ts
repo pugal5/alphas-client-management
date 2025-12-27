@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { invoicesService } from './invoices.service';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { invoicesService } from './invoices.service.js';
+import { AuthRequest } from '../middleware/auth.middleware.js';
 import { z } from 'zod';
 import { InvoiceStatus, PaymentStatus } from '@prisma/client';
 

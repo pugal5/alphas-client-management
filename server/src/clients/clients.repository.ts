@@ -1,5 +1,5 @@
 import { Prisma, Client, ClientStatus } from '@prisma/client';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/prisma.js';
 
 export interface ClientFilters {
   status?: ClientStatus;

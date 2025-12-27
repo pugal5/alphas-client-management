@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { analyticsService } from './analytics.service';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { analyticsService } from './analytics.service.js';
+import { AuthRequest } from '../middleware/auth.middleware.js';
 
 export class AnalyticsController {
   async getCampaignROI(req: AuthRequest, res: Response): Promise<void> {

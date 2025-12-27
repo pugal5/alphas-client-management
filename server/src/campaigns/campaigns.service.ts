@@ -1,8 +1,8 @@
 import { Campaign, CampaignStatus, CampaignType, Prisma } from '@prisma/client';
-import { campaignsRepository, CampaignFilters, CampaignWithRelations } from './campaigns.repository';
-import { prisma } from '../lib/prisma';
-import { rbacService } from '../rbac/rbac.service';
-import { webSocketService } from '../websocket/websocket.service';
+import { campaignsRepository, CampaignFilters, CampaignWithRelations } from './campaigns.repository.js';
+import { prisma } from '../lib/prisma.js';
+import { rbacService } from '../rbac/rbac.service.js';
+import { webSocketService } from '../websocket/websocket.service.js';
 
 export interface CreateCampaignData {
   clientId: string;

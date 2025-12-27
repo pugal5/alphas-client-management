@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { authService } from '../auth/auth.service';
-import { JWTPayload } from '../types/auth';
+import { authService } from '../auth/auth.service.js';
+import { JWTPayload } from '../types/auth.js';
 
 export interface AuthRequest extends Request {
   user?: JWTPayload;

@@ -1,5 +1,5 @@
 import { Prisma, Expense, ExpenseStatus } from '@prisma/client';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/prisma.js';
 
 export interface ExpenseFilters {
   status?: ExpenseStatus;

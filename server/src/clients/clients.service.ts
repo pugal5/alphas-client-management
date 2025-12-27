@@ -1,8 +1,8 @@
 import { Client, ClientStatus, Prisma } from '@prisma/client';
-import { clientsRepository, ClientFilters, ClientWithRelations } from './clients.repository';
-import { prisma } from '../lib/prisma';
-import { rbacService } from '../rbac/rbac.service';
-import { webSocketService } from '../websocket/websocket.service';
+import { clientsRepository, ClientFilters, ClientWithRelations } from './clients.repository.js';
+import { prisma } from '../lib/prisma.js';
+import { rbacService } from '../rbac/rbac.service.js';
+import { webSocketService } from '../websocket/websocket.service.js';
 
 export interface CreateClientData {
   name: string;

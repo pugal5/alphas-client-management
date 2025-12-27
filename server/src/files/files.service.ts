@@ -1,6 +1,6 @@
 import { Prisma, FileType } from '@prisma/client';
-import { prisma } from '../lib/prisma';
-import { rbacService } from '../rbac/rbac.service';
+import { prisma } from '../lib/prisma.js';
+import { rbacService } from '../rbac/rbac.service.js';
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';

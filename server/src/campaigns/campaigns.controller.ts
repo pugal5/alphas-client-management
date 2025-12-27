@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { campaignsService } from './campaigns.service';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { campaignsService } from './campaigns.service.js';
+import { AuthRequest } from '../middleware/auth.middleware.js';
 import { z } from 'zod';
 import { CampaignStatus, CampaignType } from '@prisma/client';
 

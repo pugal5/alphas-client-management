@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { authService } from '../auth/auth.service';
+import { authService } from '../auth/auth.service.js';
 
 export async function authenticateSocket(socket: Socket, next: Function): Promise<void> {
   try {

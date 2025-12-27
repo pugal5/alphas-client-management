@@ -1,5 +1,5 @@
-import { prisma } from '../lib/prisma';
-import { webSocketService } from '../websocket/websocket.service';
+import { prisma } from '../lib/prisma.js';
+import { webSocketService } from '../websocket/websocket.service.js';
 import nodemailer from 'nodemailer';
 
 export interface CreateNotificationData {

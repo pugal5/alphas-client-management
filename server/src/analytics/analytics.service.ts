@@ -1,5 +1,5 @@
-import { prisma } from '../lib/prisma';
-import { rbacService } from '../rbac/rbac.service';
+import { prisma } from '../lib/prisma.js';
+import { rbacService } from '../rbac/rbac.service.js';
 import { Prisma } from '@prisma/client';
 
 export interface AnalyticsFilters {

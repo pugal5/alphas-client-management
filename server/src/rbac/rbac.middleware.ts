@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express';
-import { AuthRequest } from '../middleware/auth.middleware';
-import { hasPermission, Resource, Action } from './permissions';
+import { AuthRequest } from '../middleware/auth.middleware.js';
+import { hasPermission, Resource, Action } from './permissions.js';
 
 export const requirePermission = (resource: Resource, action: Action) => {
   return (req: AuthRequest, res: Response, next: NextFunction): void => {

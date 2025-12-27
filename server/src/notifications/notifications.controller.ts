@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { notificationsService } from './notifications.service';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { notificationsService } from './notifications.service.js';
+import { AuthRequest } from '../middleware/auth.middleware.js';
 import { z } from 'zod';
 
 const updatePreferencesSchema = z.object({

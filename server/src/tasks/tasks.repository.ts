@@ -1,5 +1,5 @@
 import { Prisma, Task, TaskStatus, TaskPriority } from '@prisma/client';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/prisma.js';
 
 export interface TaskFilters {
   status?: TaskStatus;
@@ -333,7 +333,7 @@ export class TasksRepository {
         select: { dependsOnId: true },
       });
 
-      queue.push(...dependencies.map((d) => d.dependsOnId));
+      queue.push(...dependencies.map((d: { dependsOnId: string }) => d.dependsOnId));
     }
 
     return false;
@@ -366,13 +366,13 @@ export class TasksRepository {
       },
     });
 
-    return tasks.map((task) => ({
+    return tasks.map((task: any) => ({
       id: task.id,
       title: task.title,
       start: task.startDate || task.createdAt,
       end: task.dueDate || new Date(task.createdAt.getTime() + 7 * 24 * 60 * 60 * 1000), // Default 7 days
       progress: task.status === 'completed' ? 100 : task.status === 'in_progress' ? 50 : 0,
-      dependencies: task.dependencies.map((d) => d.dependsOnId),
+      dependencies: task.dependencies.map((d: { dependsOnId: string }) => d.dependsOnId),
     }));
   }
 

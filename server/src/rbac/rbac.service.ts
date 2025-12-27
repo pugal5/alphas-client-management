@@ -1,6 +1,6 @@
 import { UserRole } from '@prisma/client';
-import { prisma } from '../lib/prisma';
-import { hasPermission, Resource, Action } from './permissions';
+import { prisma } from '../lib/prisma.js';
+import { hasPermission, Resource, Action } from './permissions.js';
 
 export class RBACService {
   async checkPermission(

@@ -1,6 +1,6 @@
 import { Server as HTTPServer } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
-import { authService } from '../auth/auth.service';
+import { authService } from '../auth/auth.service.js';
 
 export interface SocketUser {
   userId: string;

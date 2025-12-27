@@ -1,9 +1,9 @@
 import { Task, TaskStatus, TaskPriority, Prisma } from '@prisma/client';
-import { tasksRepository, TaskFilters, TaskWithRelations } from './tasks.repository';
-import { prisma } from '../lib/prisma';
-import { rbacService } from '../rbac/rbac.service';
-import { webSocketService } from '../websocket/websocket.service';
-import { notificationsService } from '../notifications/notifications.service';
+import { tasksRepository, TaskFilters, TaskWithRelations } from './tasks.repository.js';
+import { prisma } from '../lib/prisma.js';
+import { rbacService } from '../rbac/rbac.service.js';
+import { webSocketService } from '../websocket/websocket.service.js';
+import { notificationsService } from '../notifications/notifications.service.js';
 
 export interface CreateTaskData {
   campaignId?: string;

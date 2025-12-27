@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UserRole, User } from '@prisma/client';
-import { prisma } from '../lib/prisma';
-import { redisClient } from '../lib/redis';
-import { JWTPayload, LoginRequest, RegisterRequest } from '../types/auth';
+import { prisma } from '../lib/prisma.js';
+import { redisClient } from '../lib/redis.js';
+import { JWTPayload, LoginRequest, RegisterRequest } from '../types/auth.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'your-refresh-secret-key';

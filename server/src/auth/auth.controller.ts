@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { authService } from './auth.service';
-import { LoginRequest, RegisterRequest } from '../types/auth';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { authService } from './auth.service.js';
+import { LoginRequest, RegisterRequest } from '../types/auth.js';
+import { AuthRequest } from '../middleware/auth.middleware.js';
 import { z } from 'zod';
 
 const loginSchema = z.object({

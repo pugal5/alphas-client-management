@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { filesService } from './files.service';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { filesService } from './files.service.js';
+import { AuthRequest } from '../middleware/auth.middleware.js';
 import multer from 'multer';
 import { FileType } from '@prisma/client';
 

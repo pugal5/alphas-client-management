@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { clientsService } from './clients.service';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { clientsService } from './clients.service.js';
+import { AuthRequest } from '../middleware/auth.middleware.js';
 import { z } from 'zod';
 import { ClientStatus } from '@prisma/client';
 
