@@ -4,6 +4,9 @@
 
 FROM node:20-alpine AS base
 
+# Install OpenSSL for Prisma
+RUN apk add --no-cache openssl1.1-compat
+
 # Install dependencies
 FROM base AS deps
 WORKDIR /app
@@ -27,6 +30,9 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
+
+# Install OpenSSL for Prisma (needed in production too)
+RUN apk add --no-cache openssl1.1-compat
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nodejs
