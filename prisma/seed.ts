@@ -173,7 +173,7 @@ async function main() {
 
   // Create tasks
   console.log('✅ Creating tasks...');
-  const tasks = [];
+  const tasks: any[] = [];
   for (const campaign of campaigns.slice(0, 200)) {
     const taskCount = faker.number.int({ min: 3, max: 10 });
     const campaignTasks = await Promise.all(
