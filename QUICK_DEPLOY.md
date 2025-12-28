@@ -118,27 +118,53 @@ powershell -ExecutionPolicy Bypass -File scripts/setup-git.ps1
 3. Settings:
    - **Name**: `crm-frontend`
    - **Root Directory**: `/` (leave empty or put `/`)
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `npm start`
+   - **Language/Runtime**: `Docker` (Render will auto-detect Docker)
+   
+4. **Advanced Settings** (Click "Advanced" to expand):
+   - **Docker Build Context Directory**: `/` (root directory)
+   - **Dockerfile Path**: `./Dockerfile`
+   - **Docker Command**: Leave empty (Dockerfile already has CMD)
+   - **Health Check Path**: `/health` (optional)
+   
+   ⚠️ **Note**: For Docker deployments, you DON'T need Build Command or Start Command fields - Docker handles this automatically via the Dockerfile.
 
-4. **Environment Variables**:
+5. **Environment Variables** (Click "Add Environment Variable"):
    ```
    NEXT_PUBLIC_API_URL = [Your backend URL from Step C]
    NODE_ENV = production
    ```
 
-5. Click **"Create Web Service"**
+6. Click **"Create Web Service"**
 
 ### F. Run Database Migrations
 
-1. Go to backend service → Click **"Shell"** tab
-2. Run these commands:
+**Option 1: Pre-Deploy Command (Free)**
+1. Go to backend service → **Settings** → Scroll to **"Pre-Deploy Command"**
+2. Enter: `cd server && npm run db:migrate`
+3. Save (will run on next deploy)
+4. After first deploy, you can remove this command
+
+**Option 2: Run Locally (Free)**
+1. Get your DATABASE_URL from Render backend service → Environment
+2. On your local machine, in the project root:
    ```bash
-   npm run db:migrate
-   npm run db:seed
+   cd server
+   DATABASE_URL="[paste your Render DATABASE_URL here]" npm run db:migrate
+   DATABASE_URL="[paste your Render DATABASE_URL here]" npm run db:seed
    ```
 
-**OR** use Render's Manual Deploy → Run Command feature
+**Option 3: One-Time Background Worker (Free)**
+1. Click **"New +"** → **"Background Worker"**
+2. Connect same GitHub repo
+3. Settings:
+   - **Name**: `migrate-db` (temporary)
+   - **Root Directory**: `server`
+   - **Command**: `npm run db:migrate && npm run db:seed`
+   - **Environment Variables**: Copy all from backend service
+4. Deploy, wait for completion, then delete the worker
+
+**Option 4: Manual Deploy with Command (if available)**
+Use Render's Manual Deploy → Run Command feature
 
 ---
 
