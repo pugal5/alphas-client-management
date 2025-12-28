@@ -40,6 +40,7 @@ RUN adduser --system --uid 1001 nodejs
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
 COPY server/package.json ./
+COPY prisma ./prisma
 
 USER nodejs
 
