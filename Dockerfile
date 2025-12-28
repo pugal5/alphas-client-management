@@ -12,6 +12,8 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Create public directory if it doesn't exist (Next.js needs it)
+RUN mkdir -p public
 # Generate Prisma client for frontend types
 RUN npx prisma generate
 RUN npm run build
