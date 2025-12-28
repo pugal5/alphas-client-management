@@ -11,7 +11,8 @@ dotenv.config();
 
 const app = express();
 const server = createServer(app);
-const PORT = process.env.API_PORT || 3001;
+// Use Render's PORT environment variable, fallback to API_PORT or 3001
+const PORT = process.env.PORT || process.env.API_PORT || 3001;
 
 // Initialize WebSocket
 webSocketService.initialize(server);
