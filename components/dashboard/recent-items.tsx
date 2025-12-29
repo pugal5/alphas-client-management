@@ -23,7 +23,7 @@ export function RecentItems() {
         <CardContent>
           {!clientsData ? (
             <Loading size="sm" />
-          ) : clientsData.clients.length > 0 ? (
+          ) : clientsData.clients && clientsData.clients.length > 0 ? (
             <div className="space-y-2">
               {clientsData.clients.slice(0, 5).map((client) => (
                 <Link
@@ -52,7 +52,7 @@ export function RecentItems() {
         <CardContent>
           {!campaignsData ? (
             <Loading size="sm" />
-          ) : campaignsData.campaigns.length > 0 ? (
+          ) : campaignsData.campaigns && campaignsData.campaigns.length > 0 ? (
             <div className="space-y-2">
               {campaignsData.campaigns.slice(0, 5).map((campaign) => (
                 <Link
@@ -81,7 +81,7 @@ export function RecentItems() {
         <CardContent>
           {!tasksData ? (
             <Loading size="sm" />
-          ) : tasksData.tasks.length > 0 ? (
+          ) : tasksData.tasks && tasksData.tasks.length > 0 ? (
             <div className="space-y-2">
               {tasksData.tasks.slice(0, 5).map((task) => (
                 <Link

@@ -60,7 +60,7 @@ export function KPITracker({ campaign }: KPITrackerProps) {
               <div className="flex justify-between text-sm">
                 <span className="font-medium">{key}</span>
                 <span className="text-muted-foreground">
-                  {actual.toLocaleString()} / {target.toLocaleString()}
+                  {actual.toLocaleString()} / {(target || 0).toLocaleString()}
                 </span>
               </div>
               <Progress value={progress} className="h-2" />

@@ -98,8 +98,8 @@ export default function CampaignDetailPage() {
     other: 'Other',
   };
 
-  const budgetUtilization = campaign.budget && campaign.actualSpend
-    ? (campaign.actualSpend / campaign.budget) * 100
+  const budgetUtilization = campaign.budget !== undefined && campaign.budget !== null && campaign.actualSpend !== undefined && campaign.actualSpend !== null
+    ? (Number(campaign.actualSpend) / Number(campaign.budget)) * 100
     : 0;
 
   return (
@@ -191,7 +191,7 @@ export default function CampaignDetailPage() {
                 <CardTitle>Budget & Spending</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                {campaign.budget && (
+                {campaign.budget !== undefined && campaign.budget !== null && (
                   <div className="flex items-center gap-2">
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                     <div className="flex-1">
@@ -202,7 +202,7 @@ export default function CampaignDetailPage() {
                     </div>
                   </div>
                 )}
-                {campaign.actualSpend !== undefined && (
+                {campaign.actualSpend !== undefined && campaign.actualSpend !== null && (
                   <div>
                     <div className="text-sm text-muted-foreground">Actual Spend</div>
                     <div className="text-lg font-semibold">

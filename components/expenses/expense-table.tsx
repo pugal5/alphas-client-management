@@ -55,8 +55,8 @@ export function createExpenseColumns(
       accessorKey: 'amount',
       header: 'Amount',
       cell: ({ row }) => {
-        const amount = row.getValue('amount') as number;
-        return `$${amount.toLocaleString()}`;
+        const amount = row.getValue('amount') as number | undefined;
+        return amount !== undefined ? `$${amount.toLocaleString()}` : '-';
       },
     },
     {

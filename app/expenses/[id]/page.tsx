@@ -103,18 +103,20 @@ export default function ExpenseDetailPage() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
               <div className="flex-1">
                 <div className="text-sm text-muted-foreground">Amount</div>
-                <div className="text-2xl font-bold">
-                  ${expense.amount.toLocaleString()}
+              <div className="text-2xl font-bold">
+                ${expense.amount !== undefined ? expense.amount.toLocaleString() : '0'}
+              </div>
+              </div>
+            </div>
+            {expense.expenseDate && (
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Expense Date</div>
+                  <div>{format(new Date(expense.expenseDate), 'PPP')}</div>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <div>
-                <div className="text-sm text-muted-foreground">Expense Date</div>
-                <div>{format(new Date(expense.expenseDate), 'PPP')}</div>
-              </div>
-            </div>
+            )}
             {expense.campaign && (
               <div>
                 <div className="text-sm text-muted-foreground">Campaign</div>

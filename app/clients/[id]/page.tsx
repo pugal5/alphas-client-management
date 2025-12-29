@@ -166,7 +166,7 @@ export default function ClientDetailPage() {
                 <CardTitle>Contract Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                {client.contractValue && (
+                {client.contractValue !== undefined && client.contractValue !== null && (
                   <div>
                     <div className="text-sm text-muted-foreground">Contract Value</div>
                     <div className="text-lg font-semibold">

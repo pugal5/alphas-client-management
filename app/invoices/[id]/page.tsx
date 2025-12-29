@@ -128,22 +128,26 @@ export default function InvoiceDetailPage() {
             <CardTitle>Invoice Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <div>
-                <div className="text-sm text-muted-foreground">Issue Date</div>
-                <div>{format(new Date(invoice.issueDate), 'PPP')}</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <div>
-                <div className="text-sm text-muted-foreground">Due Date</div>
-                <div className={isOverdue ? 'text-destructive font-semibold' : ''}>
-                  {format(new Date(invoice.dueDate), 'PPP')}
+            {invoice.issueDate && (
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Issue Date</div>
+                  <div>{format(new Date(invoice.issueDate), 'PPP')}</div>
                 </div>
               </div>
-            </div>
+            )}
+            {invoice.dueDate && (
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Due Date</div>
+                  <div className={isOverdue ? 'text-destructive font-semibold' : ''}>
+                    {format(new Date(invoice.dueDate), 'PPP')}
+                  </div>
+                </div>
+              </div>
+            )}
             {invoice.paidDate && (
               <div>
                 <div className="text-sm text-muted-foreground">Paid Date</div>
@@ -171,7 +175,7 @@ export default function InvoiceDetailPage() {
               <div className="flex-1">
                 <div className="text-sm text-muted-foreground">Amount</div>
                 <div className="text-lg font-semibold">
-                  ${invoice.amount.toLocaleString()}
+                  ${invoice.amount !== undefined ? invoice.amount.toLocaleString() : '0'}
                 </div>
               </div>
             </div>
@@ -186,7 +190,7 @@ export default function InvoiceDetailPage() {
             <div>
               <div className="text-sm text-muted-foreground">Total Amount</div>
               <div className="text-2xl font-bold">
-                ${invoice.totalAmount.toLocaleString()}
+                ${invoice.totalAmount !== undefined ? invoice.totalAmount.toLocaleString() : '0'}
               </div>
             </div>
             <div>

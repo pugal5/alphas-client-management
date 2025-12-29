@@ -103,15 +103,16 @@ export function createInvoiceColumns(
       accessorKey: 'totalAmount',
       header: 'Amount',
       cell: ({ row }) => {
-        const amount = row.getValue('totalAmount') as number;
-        return `$${amount.toLocaleString()}`;
+        const amount = row.getValue('totalAmount') as number | undefined;
+        return amount !== undefined ? `$${amount.toLocaleString()}` : '-';
       },
     },
     {
       accessorKey: 'dueDate',
       header: 'Due Date',
       cell: ({ row }) => {
-        const dueDate = row.getValue('dueDate') as string;
+        const dueDate = row.getValue('dueDate') as string | undefined;
+        if (!dueDate) return '-';
         const isOverdue = new Date(dueDate) < new Date() && row.original.paymentStatus !== 'paid';
         return (
           <span className={isOverdue ? 'text-destructive font-semibold' : ''}>
