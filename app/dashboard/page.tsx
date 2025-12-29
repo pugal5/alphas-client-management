@@ -1,37 +1,29 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useDashboardMetrics } from '@/hooks/useAnalytics';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/hooks/useAuth';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+import { Loading } from '@/components/loading';
+import { QuickActions } from '@/components/dashboard/quick-actions';
+import { RecentItems } from '@/components/dashboard/recent-items';
+import { ActivityFeed } from '@/components/dashboard/activity-feed';
 
 export default function DashboardPage() {
-  const { user } = useAuth();
-
-  const { data: metrics, isLoading } = useQuery({
-    queryKey: ['dashboard-metrics'],
-    queryFn: async () => {
-      const token = localStorage.getItem('accessToken');
-      const response = await axios.get(`${API_URL}/api/analytics/dashboard`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    },
-    enabled: !!user,
-  });
+  const { data: metrics, isLoading } = useDashboardMetrics();
 
   if (isLoading) {
-    return <div className="p-8">Loading dashboard...</div>;
+    return (
+      <div className="p-8">
+        <Loading text="Loading dashboard..." />
+      </div>
+    );
   }
 
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      
+      {/* Metrics Cards */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
         <Card>
           <CardHeader>
             <CardTitle>Total Clients</CardTitle>
@@ -68,6 +60,21 @@ export default function DashboardPage() {
             <div className="text-2xl font-bold">${(metrics?.totalRevenue || 0).toLocaleString()}</div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="mb-6">
+        <QuickActions />
+      </div>
+
+      {/* Recent Items and Activity Feed */}
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="md:col-span-2">
+          <RecentItems />
+        </div>
+        <div>
+          <ActivityFeed />
+        </div>
       </div>
     </div>
   );

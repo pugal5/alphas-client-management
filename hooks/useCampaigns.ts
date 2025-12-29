@@ -107,11 +107,11 @@ export function useCampaign(id: string) {
   return useQuery({
     queryKey: ['campaign', id],
     queryFn: async () => {
-      const response = await axios.get<{ campaign: Campaign }>(
+      const response = await axios.get<Campaign>(
         `${API_URL}/api/campaigns/${id}`,
         getAuthHeaders()
       );
-      return response.data.campaign;
+      return response.data;
     },
     enabled: !!user && !!id,
   });

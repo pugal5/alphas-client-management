@@ -105,11 +105,11 @@ export function useExpense(id: string) {
   return useQuery({
     queryKey: ['expense', id],
     queryFn: async () => {
-      const response = await axios.get<{ expense: Expense }>(
+      const response = await axios.get<Expense>(
         `${API_URL}/api/expenses/${id}`,
         getAuthHeaders()
       );
-      return response.data.expense;
+      return response.data;
     },
     enabled: !!user && !!id,
   });

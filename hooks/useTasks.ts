@@ -10,7 +10,8 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 export interface Task {
   id: string;
   campaignId?: string;
-  name: string;
+  title: string;
+  name?: string; // For backward compatibility
   description?: string;
   status: 'not_started' | 'in_progress' | 'under_review' | 'completed' | 'blocked' | 'cancelled';
   priority: 'low' | 'medium' | 'high' | 'urgent';
@@ -49,7 +50,7 @@ export interface Task {
 
 export interface CreateTaskData {
   campaignId?: string;
-  name: string;
+  title: string;
   description?: string;
   status?: Task['status'];
   priority: Task['priority'];
@@ -111,11 +112,11 @@ export function useTask(id: string) {
   return useQuery({
     queryKey: ['task', id],
     queryFn: async () => {
-      const response = await axios.get<{ task: Task }>(
+      const response = await axios.get<Task>(
         `${API_URL}/api/tasks/${id}`,
         getAuthHeaders()
       );
-      return response.data.task;
+      return response.data;
     },
     enabled: !!user && !!id,
   });

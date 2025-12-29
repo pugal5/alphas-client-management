@@ -13,6 +13,7 @@ import {
   DollarSign,
   LogOut 
 } from 'lucide-react';
+import { NotificationDropdown } from '@/components/notifications/notification-dropdown';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -69,6 +70,7 @@ export function Navigation() {
                 <span className="text-sm text-gray-700">
                   {user.firstName} {user.lastName}
                 </span>
+                <NotificationDropdown />
                 <Button
                   variant="outline"
                   size="sm"

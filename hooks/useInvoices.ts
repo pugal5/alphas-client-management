@@ -93,11 +93,11 @@ export function useInvoice(id: string) {
   return useQuery({
     queryKey: ['invoice', id],
     queryFn: async () => {
-      const response = await axios.get<{ invoice: Invoice }>(
+      const response = await axios.get<Invoice>(
         `${API_URL}/api/invoices/${id}`,
         getAuthHeaders()
       );
-      return response.data.invoice;
+      return response.data;
     },
     enabled: !!user && !!id,
   });
