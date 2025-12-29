@@ -2,6 +2,9 @@ import axios from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
+// Configure axios defaults
+axios.defaults.withCredentials = true;
+
 export interface User {
   id: string;
   email: string;

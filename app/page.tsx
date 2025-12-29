@@ -31,7 +31,16 @@ export default function Home() {
       await login(email, password);
       router.push('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.error || err.message || 'Login failed. Please try again.');
+      console.error('Login error:', err);
+      if (err.code === 'ERR_NETWORK' || err.message?.includes('Network Error')) {
+        setError('Cannot connect to backend. Please check that the backend is running and CORS is configured correctly.');
+      } else if (err.response?.data?.error) {
+        setError(err.response.data.error);
+      } else if (err.message) {
+        setError(err.message);
+      } else {
+        setError('Login failed. Please try again.');
+      }
     } finally {
       setIsLoggingIn(false);
     }
