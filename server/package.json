@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
-    "db:fix-admin": "tsx prisma/fix-admin.ts"
+    "db:fix-admin": "tsx ../prisma/fix-admin.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
