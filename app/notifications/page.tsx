@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { useNotifications, useMarkAllAsRead, useNotificationPreferences, useUpdateNotificationPreferences } from '@/hooks/useNotifications';
+import { useNotifications, useMarkAllAsRead, useNotificationPreferences, useUpdateNotificationPreferences, NotificationPreferences } from '@/hooks/useNotifications';
 import { NotificationItem } from '@/components/notifications/notification-item';
 import { Loading } from '@/components/loading';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -20,7 +20,7 @@ export default function NotificationsPage() {
   const unreadNotifications = notifications?.filter(n => !n.read) || [];
   const displayedNotifications = activeTab === 'unread' ? unreadNotifications : (notifications || []);
 
-  const handleTogglePreference = (key: keyof typeof preferences) => {
+  const handleTogglePreference = (key: keyof NotificationPreferences) => {
     if (preferences) {
       updatePreferences.mutate({
         [key]: !preferences[key],

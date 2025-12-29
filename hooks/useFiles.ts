@@ -7,7 +7,7 @@ import { toast } from '@/hooks/use-toast';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
-export interface File {
+export interface FileEntity {
   id: string;
   entityType: string;
   entityId: string;
@@ -53,7 +53,7 @@ export function useFiles(filters?: FileFilters) {
       if (filters?.type) params.append('type', filters.type);
       if (filters?.search) params.append('search', filters.search);
 
-      const response = await axios.get<{ files: File[] }>(
+      const response = await axios.get<{ files: FileEntity[] }>(
         `${API_URL}/api/files?${params.toString()}`,
         getAuthHeaders()
       );
@@ -69,7 +69,7 @@ export function useFile(id: string) {
   return useQuery({
     queryKey: ['file', id],
     queryFn: async () => {
-      const response = await axios.get<{ file: File }>(
+      const response = await axios.get<{ file: FileEntity }>(
         `${API_URL}/api/files/${id}`,
         getAuthHeaders()
       );
@@ -83,14 +83,14 @@ export function useUploadFile() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ file, entityType, entityId }: { file: File; entityType: string; entityId: string }) => {
+    mutationFn: async ({ file, entityType, entityId }: { file: globalThis.File; entityType: string; entityId: string }) => {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('entityType', entityType);
       formData.append('entityId', entityId);
 
       const token = localStorage.getItem('accessToken');
-      const response = await axios.post<{ file: File }>(
+      const response = await axios.post<{ file: FileEntity }>(
         `${API_URL}/api/files/upload`,
         formData,
         {

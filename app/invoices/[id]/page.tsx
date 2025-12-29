@@ -5,7 +5,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useInvoice, useDeleteInvoice, useUpdatePaymentStatus, useSendInvoice } from '@/hooks/useInvoices';
+import { useInvoice, useDeleteInvoice, useUpdatePaymentStatus, useSendInvoice, Invoice } from '@/hooks/useInvoices';
 import { InvoiceForm } from '@/components/invoices/invoice-form';
 import { PaymentStatusBadge } from '@/components/invoices/payment-status-badge';
 import { Pencil, Trash2, Send, DollarSign, Calendar } from 'lucide-react';

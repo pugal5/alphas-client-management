@@ -23,7 +23,7 @@ export function GanttChart({ tasks }: GanttChartProps) {
       
       return {
         id: task.id,
-        name: task.title || task.name,
+        name: task.title || task.name || 'Untitled Task',
         start: format(startDate, 'yyyy-MM-dd'),
         end: format(dueDate, 'yyyy-MM-dd'),
         progress: task.status === 'completed' ? 100 : task.status === 'in_progress' ? 50 : 0,

@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { File } from '@/hooks/useFiles';
+import { FileEntity as File } from '@/hooks/useFiles';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { useDownloadFile } from '@/hooks/useFiles';

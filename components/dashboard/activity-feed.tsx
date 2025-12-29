@@ -41,13 +41,13 @@ const activityIcons: Record<string, React.ComponentType<{ className?: string }>>
 export function ActivityFeed() {
   const { user } = useAuth();
 
-  const { data: activities, isLoading } = useQuery({
+  const { data: activities, isLoading } = useQuery<Activity[]>({
     queryKey: ['activities'],
     queryFn: async () => {
       const token = localStorage.getItem('accessToken');
       // Activities are embedded in client/campaign/task responses
       // For now, return empty array - can be enhanced later with dedicated endpoint
-      return [];
+      return [] as Activity[];
     },
     enabled: !!user,
   });

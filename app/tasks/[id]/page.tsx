@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useTask, useDeleteTask, useUpdateTaskStatus, useUpdateTimeTracking } from '@/hooks/useTasks';
+import { useTask, useDeleteTask, useUpdateTaskStatus, useUpdateTimeTracking, Task } from '@/hooks/useTasks';
 import { TaskForm } from '@/components/tasks/task-form';
 import { Pencil, Trash2, Calendar, Clock, User } from 'lucide-react';
 import { format } from 'date-fns';

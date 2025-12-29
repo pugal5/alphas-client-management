@@ -1,6 +1,6 @@
 'use client';
 
-import { File } from '@/hooks/useFiles';
+import { FileEntity as File } from '@/hooks/useFiles';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, Trash2, FileText, Image, Video, Music } from 'lucide-react';

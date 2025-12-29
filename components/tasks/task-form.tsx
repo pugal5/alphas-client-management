@@ -62,7 +62,7 @@ export function TaskForm({ open, onOpenChange, task }: TaskFormProps) {
     resolver: zodResolver(taskSchema),
     defaultValues: {
       campaignId: undefined,
-      name: '',
+      title: '',
       description: '',
       status: 'not_started',
       priority: 'medium',
@@ -160,7 +160,7 @@ export function TaskForm({ open, onOpenChange, task }: TaskFormProps) {
 
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Task Title *</FormLabel>

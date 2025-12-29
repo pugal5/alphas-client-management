@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useCampaign, useDeleteCampaign, useUpdateCampaignStatus, useUpdateCampaignKPI } from '@/hooks/useCampaigns';
+import { useCampaign, useDeleteCampaign, useUpdateCampaignStatus, useUpdateCampaignKPI, Campaign } from '@/hooks/useCampaigns';
 import { CampaignForm } from '@/components/campaigns/campaign-form';
 import { KPITracker } from '@/components/campaigns/kpi-tracker';
 import { Pencil, Trash2, Calendar, DollarSign, Target } from 'lucide-react';
