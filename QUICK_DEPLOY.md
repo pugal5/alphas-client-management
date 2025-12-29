@@ -136,15 +136,25 @@ powershell -ExecutionPolicy Bypass -File scripts/setup-git.ps1
 
 6. Click **"Create Web Service"**
 
-### F. Run Database Migrations
+### F. Run Database Migrations & Seed (One-Time Setup)
 
-**Option 1: Pre-Deploy Command (Free)**
+⚠️ **Important**: You only need to do this **once** (or when you change your database schema). The database persists between deploys, so you don't need to run this after every code deployment.
+
+**Option 1: Using Render Shell (Paid Feature)**
+1. Go to backend service → Click **"Shell"** tab
+2. Run these commands (one time only):
+   ```bash
+   npm run db:migrate  # Only needed if you have migration files
+   npm run db:seed     # Creates admin user and sample data
+   ```
+
+**Option 2: Pre-Deploy Command (Free - One-Time)**
 1. Go to backend service → **Settings** → Scroll to **"Pre-Deploy Command"**
-2. Enter: `cd server && npm run db:migrate`
-3. Save (will run on next deploy)
-4. After first deploy, you can remove this command
+2. Enter: `cd server && npm run db:migrate && npm run db:seed`
+3. Save and trigger a manual deploy
+4. **After first deploy completes, remove this command** (so it doesn't run on every deploy)
 
-**Option 2: Run Locally (Free)**
+**Option 3: Run Locally (Free)**
 1. Get your DATABASE_URL from Render backend service → Environment
 2. On your local machine, in the project root:
    ```bash
@@ -153,18 +163,20 @@ powershell -ExecutionPolicy Bypass -File scripts/setup-git.ps1
    DATABASE_URL="[paste your Render DATABASE_URL here]" npm run db:seed
    ```
 
-**Option 3: One-Time Background Worker (Free)**
+**Option 4: One-Time Background Worker (Free)**
 1. Click **"New +"** → **"Background Worker"**
 2. Connect same GitHub repo
 3. Settings:
-   - **Name**: `migrate-db` (temporary)
+   - **Name**: `setup-db` (temporary)
    - **Root Directory**: `server`
    - **Command**: `npm run db:migrate && npm run db:seed`
    - **Environment Variables**: Copy all from backend service
-4. Deploy, wait for completion, then delete the worker
+4. Deploy, wait for completion, then **delete the worker**
 
-**Option 4: Manual Deploy with Command (if available)**
-Use Render's Manual Deploy → Run Command feature
+**When to re-run:**
+- ✅ **Never** after normal code deployments
+- ✅ **Only** when you change your Prisma schema (need migrations)
+- ✅ **Only** when you want to reset/refresh sample data (seed)
 
 ---
 
