@@ -43,6 +43,8 @@ class AuthClient {
     const response = await axios.post<AuthResponse>(`${API_URL}/api/auth/login`, {
       email,
       password,
+    }, {
+      withCredentials: true,
     });
     this.setAccessToken(response.data.accessToken);
     return response.data;
@@ -55,7 +57,9 @@ class AuthClient {
     lastName: string;
     role?: string;
   }): Promise<AuthResponse> {
-    const response = await axios.post<AuthResponse>(`${API_URL}/api/auth/register`, data);
+    const response = await axios.post<AuthResponse>(`${API_URL}/api/auth/register`, data, {
+      withCredentials: true,
+    });
     this.setAccessToken(response.data.accessToken);
     return response.data;
   }
