@@ -388,4 +388,3 @@ We will build incrementally, testing each phase before moving to the next:
 **Infrastructure:**
 
 - PostgreSQL: 15
-- Redis: 7
