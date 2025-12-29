@@ -16,6 +16,9 @@ COPY . .
 RUN mkdir -p public
 # Generate Prisma client for frontend types
 RUN npx prisma generate
+# Build argument for API URL (will be passed from Render env vars)
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 RUN npm run build
 
 # Production image
