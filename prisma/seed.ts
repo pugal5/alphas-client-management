@@ -1,5 +1,6 @@
 import { PrismaClient, UserRole, ClientStatus, CampaignStatus, CampaignType, TaskStatus, TaskPriority, InvoiceStatus, PaymentStatus, ExpenseStatus } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -24,10 +25,11 @@ async function main() {
 
   // Create users
   console.log('👥 Creating users...');
+  const adminPassword = await bcrypt.hash('admin123', 10);
   const admin = await prisma.user.create({
     data: {
       email: 'admin@crm.com',
-      password: '$2a$10$rOzJqJqJqJqJqJqJqJqJqOqJqJqJqJqJqJqJqJqJqJqJqJqJqJq', // password: admin123
+      password: adminPassword,
       firstName: 'Admin',
       lastName: 'User',
       role: UserRole.admin,
@@ -36,12 +38,13 @@ async function main() {
     },
   });
 
+  const managerPassword = await bcrypt.hash('password123', 10);
   const managers = await Promise.all(
     Array.from({ length: 3 }).map(() =>
       prisma.user.create({
         data: {
           email: faker.internet.email(),
-          password: '$2a$10$rOzJqJqJqJqJqJqJqJqJqOqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJq', // password: password123
+          password: managerPassword,
           firstName: faker.person.firstName(),
           lastName: faker.person.lastName(),
           role: UserRole.manager,
@@ -53,12 +56,13 @@ async function main() {
     )
   );
 
+  const teamMemberPassword = await bcrypt.hash('password123', 10);
   const teamMembers = await Promise.all(
     Array.from({ length: 50 }).map(() =>
       prisma.user.create({
         data: {
           email: faker.internet.email(),
-          password: '$2a$10$rOzJqJqJqJqJqJqJqJqJqOqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJq',
+          password: teamMemberPassword,
           firstName: faker.person.firstName(),
           lastName: faker.person.lastName(),
           role: UserRole.team_member,
@@ -70,12 +74,13 @@ async function main() {
     )
   );
 
+  const financePassword = await bcrypt.hash('password123', 10);
   const financeUsers = await Promise.all(
     Array.from({ length: 2 }).map(() =>
       prisma.user.create({
         data: {
           email: faker.internet.email(),
-          password: '$2a$10$rOzJqJqJqJqJqJqJqJqJqOqJqJqJqJqJqJqJqJqJqJqJqJqJqJqJq',
+          password: financePassword,
           firstName: faker.person.firstName(),
           lastName: faker.person.lastName(),
           role: UserRole.finance,
