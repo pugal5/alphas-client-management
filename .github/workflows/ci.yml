@@ -45,10 +45,10 @@ jobs:
         env:
           DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
       
-      - name: Generate Prisma Client for Server
-        working-directory: ./server
+      - name: Copy Prisma Client to Server
         run: |
-          npx prisma generate --schema=../prisma/schema.prisma
+          mkdir -p server/node_modules/.prisma
+          cp -r node_modules/.prisma/client server/node_modules/.prisma/client
         env:
           DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
       
