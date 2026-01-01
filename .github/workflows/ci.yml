@@ -42,6 +42,7 @@ jobs:
       - name: Generate Prisma Client
         run: |
           npm run db:generate
+          cd server && npx prisma generate --schema=../prisma/schema.prisma
         env:
           DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
       
