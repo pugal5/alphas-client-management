@@ -136,14 +136,16 @@ export function ExpenseForm({ open, onOpenChange, expense }: ExpenseFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Campaign (Optional)</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select 
+                      onValueChange={(value) => field.onChange(value || undefined)} 
+                      value={field.value || undefined}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a campaign" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="">None</SelectItem>
                         {(campaignsData?.campaigns || []).map((campaign) => (
                           <SelectItem key={campaign.id} value={campaign.id}>
                             {campaign.name}
@@ -161,15 +163,17 @@ export function ExpenseForm({ open, onOpenChange, expense }: ExpenseFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Client (Optional)</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select 
+                      onValueChange={(value) => field.onChange(value || undefined)} 
+                      value={field.value || undefined}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a client" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="">None</SelectItem>
-                        {clientsData?.clients.map((client) => (
+                        {(clientsData?.clients || []).map((client) => (
                           <SelectItem key={client.id} value={client.id}>
                             {client.name}
                           </SelectItem>
