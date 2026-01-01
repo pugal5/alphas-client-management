@@ -14,6 +14,7 @@ import {
   LogOut 
 } from 'lucide-react';
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -34,12 +35,12 @@ export function Navigation() {
   }
 
   return (
-    <nav className="bg-white border-b border-gray-200">
+    <nav className="glass-nav sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/dashboard" className="text-xl font-bold text-gray-900">
+              <Link href="/dashboard" className="text-xl font-bold text-foreground">
                 Alpha CRM
               </Link>
             </div>
@@ -51,10 +52,10 @@ export function Navigation() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors ${
                       isActive
-                        ? 'border-blue-500 text-gray-900'
-                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                        ? 'border-primary text-foreground'
+                        : 'border-transparent text-muted-foreground hover:border-muted hover:text-foreground'
                     }`}
                   >
                     <Icon className="w-4 h-4 mr-2" />
@@ -67,10 +68,11 @@ export function Navigation() {
           <div className="flex items-center">
             {user && (
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-foreground">
                   {user.firstName} {user.lastName}
                 </span>
                 <NotificationDropdown />
+                <ThemeToggle />
                 <Button
                   variant="outline"
                   size="sm"
@@ -78,6 +80,7 @@ export function Navigation() {
                     logout();
                     window.location.href = '/';
                   }}
+                  className="glass hover:bg-accent/50"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Logout

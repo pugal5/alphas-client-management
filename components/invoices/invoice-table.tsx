@@ -53,7 +53,7 @@ export function createInvoiceColumns(
         return (
           <Link
             href={`/invoices/${invoice.id}`}
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-primary hover:underline"
           >
             {invoice.invoiceNumber}
           </Link>
@@ -68,7 +68,7 @@ export function createInvoiceColumns(
         return client ? (
           <Link
             href={`/clients/${client.id}`}
-            className="text-blue-600 hover:underline"
+            className="text-primary hover:underline"
           >
             {client.name}
           </Link>

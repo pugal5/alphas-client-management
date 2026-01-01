@@ -108,7 +108,7 @@ export default function TaskDetailPage() {
           </div>
           {task.campaign && (
             <p className="text-muted-foreground mt-1">
-              Campaign: <Link href={`/campaigns/${task.campaign.id}`} className="text-blue-600 hover:underline">{task.campaign.name}</Link>
+              Campaign: <Link href={`/campaigns/${task.campaign.id}`} className="text-primary hover:underline">{task.campaign.name}</Link>
             </p>
           )}
         </div>
@@ -279,7 +279,7 @@ export default function TaskDetailPage() {
                     <div key={dep.id} className="flex items-center justify-between p-3 border rounded-lg">
                       <Link
                         href={`/tasks/${dep.dependsOn.id}`}
-                        className="text-blue-600 hover:underline"
+                        className="text-primary hover:underline"
                       >
                         {dep.dependsOn.name}
                       </Link>

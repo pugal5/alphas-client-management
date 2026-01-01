@@ -56,7 +56,7 @@ export function createCampaignColumns(
         return (
           <Link
             href={`/campaigns/${campaign.id}`}
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-primary hover:underline"
           >
             {campaign.name}
           </Link>
@@ -71,7 +71,7 @@ export function createCampaignColumns(
         return client ? (
           <Link
             href={`/clients/${client.id}`}
-            className="text-blue-600 hover:underline"
+            className="text-primary hover:underline"
           >
             {client.name}
           </Link>

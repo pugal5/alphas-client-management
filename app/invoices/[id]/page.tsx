@@ -100,7 +100,7 @@ export default function InvoiceDetailPage() {
           </div>
           {invoice.client && (
             <p className="text-muted-foreground mt-1">
-              Client: <Link href={`/clients/${invoice.client.id}`} className="text-blue-600 hover:underline">{invoice.client.name}</Link>
+              Client: <Link href={`/clients/${invoice.client.id}`} className="text-primary hover:underline">{invoice.client.name}</Link>
             </p>
           )}
         </div>

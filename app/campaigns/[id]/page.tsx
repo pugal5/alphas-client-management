@@ -235,7 +235,7 @@ export default function CampaignDetailPage() {
                     <div className="text-sm text-muted-foreground">Client</div>
                     <Link
                       href={`/clients/${campaign.client.id}`}
-                      className="text-blue-600 hover:underline"
+                      className="text-primary hover:underline"
                     >
                       {campaign.client.name}
                     </Link>

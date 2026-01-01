@@ -44,7 +44,7 @@ export function createExpenseColumns(
         return (
           <Link
             href={`/expenses/${expense.id}`}
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-primary hover:underline"
           >
             {expense.description}
           </Link>
@@ -83,7 +83,7 @@ export function createExpenseColumns(
         return campaign ? (
           <Link
             href={`/campaigns/${campaign.id}`}
-            className="text-blue-600 hover:underline"
+            className="text-primary hover:underline"
           >
             {campaign.name}
           </Link>

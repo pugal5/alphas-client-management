@@ -118,7 +118,7 @@ export default function ClientDetailPage() {
                 {client.email && (
                   <div className="flex items-center gap-2">
                     <Mail className="h-4 w-4 text-muted-foreground" />
-                    <a href={`mailto:${client.email}`} className="text-blue-600 hover:underline">
+                    <a href={`mailto:${client.email}`} className="text-primary hover:underline">
                       {client.email}
                     </a>
                   </div>
@@ -126,7 +126,7 @@ export default function ClientDetailPage() {
                 {client.phone && (
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-muted-foreground" />
-                    <a href={`tel:${client.phone}`} className="text-blue-600 hover:underline">
+                    <a href={`tel:${client.phone}`} className="text-primary hover:underline">
                       {client.phone}
                     </a>
                   </div>
@@ -138,7 +138,7 @@ export default function ClientDetailPage() {
                       href={client.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
+                      className="text-primary hover:underline"
                     >
                       {client.website}
                     </a>
@@ -272,12 +272,12 @@ export default function ClientDetailPage() {
                         )}
                         <div className="flex items-center gap-4 mt-2 text-sm">
                           {contact.email && (
-                            <a href={`mailto:${contact.email}`} className="text-blue-600 hover:underline">
+                            <a href={`mailto:${contact.email}`} className="text-primary hover:underline">
                               {contact.email}
                             </a>
                           )}
                           {contact.phone && (
-                            <a href={`tel:${contact.phone}`} className="text-blue-600 hover:underline">
+                            <a href={`tel:${contact.phone}`} className="text-primary hover:underline">
                               {contact.phone}
                             </a>
                           )}

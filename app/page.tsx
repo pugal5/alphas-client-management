@@ -59,7 +59,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <div className="w-full max-w-md">
         <Card>
           <CardHeader className="text-center">
@@ -73,7 +73,7 @@ export default function Home() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
-                <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md">
+                <div className="p-3 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-md">
                   {error}
                 </div>
               )}

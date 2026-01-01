@@ -125,7 +125,7 @@ export default function ExpenseDetailPage() {
                 <div className="text-sm text-muted-foreground">Campaign</div>
                 <Link
                   href={`/campaigns/${expense.campaign.id}`}
-                  className="text-blue-600 hover:underline"
+                  className="text-primary hover:underline"
                 >
                   {expense.campaign.name}
                 </Link>
@@ -136,7 +136,7 @@ export default function ExpenseDetailPage() {
                 <div className="text-sm text-muted-foreground">Client</div>
                 <Link
                   href={`/clients/${expense.client.id}`}
-                  className="text-blue-600 hover:underline"
+                  className="text-primary hover:underline"
                 >
                   {expense.client.name}
                 </Link>
@@ -175,7 +175,7 @@ export default function ExpenseDetailPage() {
                     href={expense.receiptUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+                    className="text-primary hover:underline"
                   >
                     View Receipt
                   </a>

@@ -44,7 +44,7 @@ export function createClientColumns(
         return (
           <Link
             href={`/clients/${client.id}`}
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-primary hover:underline"
           >
             {client.name}
           </Link>

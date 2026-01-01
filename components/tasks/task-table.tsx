@@ -53,7 +53,7 @@ export function createTaskColumns(
         return (
           <Link
             href={`/tasks/${task.id}`}
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-primary hover:underline"
           >
             {task.title || task.name}
           </Link>
@@ -68,7 +68,7 @@ export function createTaskColumns(
         return campaign ? (
           <Link
             href={`/campaigns/${campaign.id}`}
-            className="text-blue-600 hover:underline"
+            className="text-primary hover:underline"
           >
             {campaign.name}
           </Link>
