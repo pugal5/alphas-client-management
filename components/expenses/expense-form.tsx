@@ -144,7 +144,7 @@ export function ExpenseForm({ open, onOpenChange, expense }: ExpenseFormProps) {
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="">None</SelectItem>
-                        {campaignsData?.campaigns.map((campaign) => (
+                        {(campaignsData?.campaigns || []).map((campaign) => (
                           <SelectItem key={campaign.id} value={campaign.id}>
                             {campaign.name}
                           </SelectItem>

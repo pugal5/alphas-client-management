@@ -138,7 +138,7 @@ export function TaskForm({ open, onOpenChange, task }: TaskFormProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Campaign (Optional)</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value || ''}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a campaign (optional)" />
@@ -146,7 +146,7 @@ export function TaskForm({ open, onOpenChange, task }: TaskFormProps) {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="">None</SelectItem>
-                      {campaignsData?.campaigns.map((campaign) => (
+                      {(campaignsData?.campaigns || []).map((campaign) => (
                         <SelectItem key={campaign.id} value={campaign.id}>
                           {campaign.name}
                         </SelectItem>
@@ -197,7 +197,7 @@ export function TaskForm({ open, onOpenChange, task }: TaskFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Status</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select status" />
@@ -222,7 +222,7 @@ export function TaskForm({ open, onOpenChange, task }: TaskFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Priority *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select priority" />
