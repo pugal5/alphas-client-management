@@ -39,10 +39,15 @@ jobs:
           npm ci
           cd server && npm ci
       
+      - name: Generate Prisma Client
+        run: |
+          npm run db:generate
+        env:
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
+      
       - name: Run tests
         run: |
           npm test
-          cd server && npm test
         env:
           DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
 
