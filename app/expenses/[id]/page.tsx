@@ -108,15 +108,18 @@ export default function ExpenseDetailPage() {
               </div>
               </div>
             </div>
-            {expense.expenseDate && (
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <div>
-                  <div className="text-sm text-muted-foreground">Expense Date</div>
-                  <div>{format(new Date(expense.expenseDate), 'PPP')}</div>
+            {expense.expenseDate && (() => {
+              const date = new Date(expense.expenseDate);
+              return !isNaN(date.getTime()) && (
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <div>
+                    <div className="text-sm text-muted-foreground">Expense Date</div>
+                    <div>{format(date, 'PPP')}</div>
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
             {expense.campaign && (
               <div>
                 <div className="text-sm text-muted-foreground">Campaign</div>

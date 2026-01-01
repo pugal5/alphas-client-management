@@ -48,7 +48,7 @@ export function useRealTimeUpdates() {
       queryClient.invalidateQueries({ queryKey: ['notifications', 'unread-count'] });
       toast({
         title: data.title || 'New Notification',
-        description: data.message,
+        description: data.message || '',
       });
     });
 

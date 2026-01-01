@@ -149,24 +149,30 @@ export default function CampaignDetailPage() {
                     <div className="mt-1">{campaign.description}</div>
                   </div>
                 )}
-                {campaign.startDate && (
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <div>
-                      <div className="text-sm text-muted-foreground">Start Date</div>
-                      <div>{format(new Date(campaign.startDate), 'PPP')}</div>
+                {campaign.startDate && (() => {
+                  const date = new Date(campaign.startDate);
+                  return !isNaN(date.getTime()) && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <div className="text-sm text-muted-foreground">Start Date</div>
+                        <div>{format(date, 'PPP')}</div>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {campaign.endDate && (
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <div>
-                      <div className="text-sm text-muted-foreground">End Date</div>
-                      <div>{format(new Date(campaign.endDate), 'PPP')}</div>
+                  );
+                })()}
+                {campaign.endDate && (() => {
+                  const date = new Date(campaign.endDate);
+                  return !isNaN(date.getTime()) && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <div className="text-sm text-muted-foreground">End Date</div>
+                        <div>{format(date, 'PPP')}</div>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
                 {campaign.assignedTo && (
                   <div>
                     <div className="text-sm text-muted-foreground">Assigned To</div>

@@ -174,18 +174,24 @@ export default function ClientDetailPage() {
                     </div>
                   </div>
                 )}
-                {client.contractStart && (
-                  <div>
-                    <div className="text-sm text-muted-foreground">Start Date</div>
-                    <div>{format(new Date(client.contractStart), 'PPP')}</div>
-                  </div>
-                )}
-                {client.contractEnd && (
-                  <div>
-                    <div className="text-sm text-muted-foreground">End Date</div>
-                    <div>{format(new Date(client.contractEnd), 'PPP')}</div>
-                  </div>
-                )}
+                {client.contractStart && (() => {
+                  const date = new Date(client.contractStart);
+                  return !isNaN(date.getTime()) && (
+                    <div>
+                      <div className="text-sm text-muted-foreground">Start Date</div>
+                      <div>{format(date, 'PPP')}</div>
+                    </div>
+                  );
+                })()}
+                {client.contractEnd && (() => {
+                  const date = new Date(client.contractEnd);
+                  return !isNaN(date.getTime()) && (
+                    <div>
+                      <div className="text-sm text-muted-foreground">End Date</div>
+                      <div>{format(date, 'PPP')}</div>
+                    </div>
+                  );
+                })()}
                 {client.owner && (
                   <div>
                     <div className="text-sm text-muted-foreground">Owner</div>

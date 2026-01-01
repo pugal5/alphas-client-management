@@ -144,24 +144,30 @@ export default function TaskDetailPage() {
                     <div className="mt-1">{task.description}</div>
                   </div>
                 )}
-                {task.startDate && (
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <div>
-                      <div className="text-sm text-muted-foreground">Start Date</div>
-                      <div>{format(new Date(task.startDate), 'PPP')}</div>
+                {task.startDate && (() => {
+                  const date = new Date(task.startDate);
+                  return !isNaN(date.getTime()) && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <div className="text-sm text-muted-foreground">Start Date</div>
+                        <div>{format(date, 'PPP')}</div>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {task.dueDate && (
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <div>
-                      <div className="text-sm text-muted-foreground">Due Date</div>
-                      <div>{format(new Date(task.dueDate), 'PPP')}</div>
+                  );
+                })()}
+                {task.dueDate && (() => {
+                  const date = new Date(task.dueDate);
+                  return !isNaN(date.getTime()) && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <div className="text-sm text-muted-foreground">Due Date</div>
+                        <div>{format(date, 'PPP')}</div>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
                 {task.assignedTo && (
                   <div className="flex items-center gap-2">
                     <User className="h-4 w-4 text-muted-foreground" />
@@ -208,12 +214,15 @@ export default function TaskDetailPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                {task.completedAt && (
-                  <div>
-                    <div className="text-sm text-muted-foreground">Completed At</div>
-                    <div>{format(new Date(task.completedAt), 'PPP p')}</div>
-                  </div>
-                )}
+                {task.completedAt && (() => {
+                  const date = new Date(task.completedAt);
+                  return !isNaN(date.getTime()) && (
+                    <div>
+                      <div className="text-sm text-muted-foreground">Completed At</div>
+                      <div>{format(date, 'PPP p')}</div>
+                    </div>
+                  );
+                })()}
               </CardContent>
             </Card>
           </div>

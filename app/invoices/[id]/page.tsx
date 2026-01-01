@@ -82,7 +82,7 @@ export default function InvoiceDetailPage() {
     cancelled: 'secondary',
   } as const;
 
-  const isOverdue = new Date(invoice.dueDate) < new Date() && invoice.paymentStatus !== 'paid';
+  const isOverdue = invoice.dueDate ? new Date(invoice.dueDate) < new Date() && invoice.paymentStatus !== 'paid' : false;
 
   return (
     <div className="p-8">
@@ -128,32 +128,41 @@ export default function InvoiceDetailPage() {
             <CardTitle>Invoice Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {invoice.issueDate && (
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <div>
-                  <div className="text-sm text-muted-foreground">Issue Date</div>
-                  <div>{format(new Date(invoice.issueDate), 'PPP')}</div>
-                </div>
-              </div>
-            )}
-            {invoice.dueDate && (
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <div>
-                  <div className="text-sm text-muted-foreground">Due Date</div>
-                  <div className={isOverdue ? 'text-destructive font-semibold' : ''}>
-                    {format(new Date(invoice.dueDate), 'PPP')}
+            {invoice.issueDate && (() => {
+              const date = new Date(invoice.issueDate);
+              return !isNaN(date.getTime()) && (
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <div>
+                    <div className="text-sm text-muted-foreground">Issue Date</div>
+                    <div>{format(date, 'PPP')}</div>
                   </div>
                 </div>
-              </div>
-            )}
-            {invoice.paidDate && (
-              <div>
-                <div className="text-sm text-muted-foreground">Paid Date</div>
-                <div>{format(new Date(invoice.paidDate), 'PPP')}</div>
-              </div>
-            )}
+              );
+            })()}
+            {invoice.dueDate && (() => {
+              const date = new Date(invoice.dueDate);
+              return !isNaN(date.getTime()) && (
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <div>
+                    <div className="text-sm text-muted-foreground">Due Date</div>
+                    <div className={isOverdue ? 'text-destructive font-semibold' : ''}>
+                      {format(date, 'PPP')}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+            {invoice.paidDate && (() => {
+              const date = new Date(invoice.paidDate);
+              return !isNaN(date.getTime()) && (
+                <div>
+                  <div className="text-sm text-muted-foreground">Paid Date</div>
+                  <div>{format(date, 'PPP')}</div>
+                </div>
+              );
+            })()}
             {invoice.creator && (
               <div>
                 <div className="text-sm text-muted-foreground">Created By</div>

@@ -23,6 +23,7 @@ const fileTypeIcons = {
 
 const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return '0 Bytes';
+  if (bytes < 0 || !isFinite(bytes)) return '0 Bytes';
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -56,7 +57,7 @@ export function FileList({ files, onDelete }: FileListProps) {
     }
   };
 
-  if (files.length === 0) {
+  if (!files || files.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground">
         No files uploaded yet
@@ -77,7 +78,10 @@ export function FileList({ files, onDelete }: FileListProps) {
                   <div className="flex-1 min-w-0">
                     <div className="font-medium truncate">{file.name}</div>
                     <div className="text-sm text-muted-foreground">
-                      {formatFileSize(file.size)} • {format(new Date(file.createdAt), 'MMM d, yyyy')}
+                      {formatFileSize(file.size)} • {file.createdAt ? (() => {
+                        const date = new Date(file.createdAt);
+                        return isNaN(date.getTime()) ? 'Invalid date' : format(date, 'MMM d, yyyy');
+                      })() : 'No date'}
                     </div>
                   </div>
                   <Badge variant="outline">{file.type}</Badge>

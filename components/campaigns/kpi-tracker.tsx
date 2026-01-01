@@ -17,7 +17,10 @@ export function KPITracker({ campaign }: KPITrackerProps) {
       lines.forEach((line) => {
         const match = line.match(/(.+?):\s*(\d+)/);
         if (match) {
-          kpis[match[1].trim()] = parseFloat(match[2]);
+          const value = parseFloat(match[2]);
+          if (!isNaN(value) && isFinite(value)) {
+            kpis[match[1].trim()] = value;
+          }
         }
       });
     } catch (e) {
@@ -53,7 +56,7 @@ export function KPITracker({ campaign }: KPITrackerProps) {
       </CardHeader>
       <CardContent className="space-y-4">
         {Object.entries(targets).map(([key, target]) => {
-          const actual = actuals[key] || 0;
+          const actual = typeof actuals[key] === 'number' ? actuals[key] : 0;
           const progress = calculateProgress(target, actual);
           return (
             <div key={key} className="space-y-2">
