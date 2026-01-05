@@ -6,6 +6,7 @@ import { Loading } from '@/components/loading';
 import { QuickActions } from '@/components/dashboard/quick-actions';
 import { RecentItems } from '@/components/dashboard/recent-items';
 import { ActivityFeed } from '@/components/dashboard/activity-feed';
+import { OverallProjectStatus } from '@/components/dashboard/overall-project-status';
 
 export default function DashboardPage() {
   const { data: metrics, isLoading } = useDashboardMetrics();
@@ -60,6 +61,11 @@ export default function DashboardPage() {
             <div className="text-2xl font-bold">${(metrics?.totalRevenue || 0).toLocaleString()}</div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Overall Project Status */}
+      <div className="mb-6">
+        <OverallProjectStatus />
       </div>
 
       {/* Quick Actions */}

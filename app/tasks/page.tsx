@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Plus, Table2, Calendar } from 'lucide-react';
+import { Plus, Table2, Calendar, ExternalLink } from 'lucide-react';
 import { TaskTable } from '@/components/tasks/task-table';
 import { TaskForm } from '@/components/tasks/task-form';
 import { useTasks, useDeleteTask } from '@/hooks/useTasks';
@@ -75,6 +76,13 @@ export default function TasksPage() {
               <SelectItem value="urgent">Urgent</SelectItem>
             </SelectContent>
           </Select>
+          <Link href="/tasks/gantt">
+            <Button variant="outline">
+              <Calendar className="mr-2 h-4 w-4" />
+              View Gantt Chart
+              <ExternalLink className="ml-2 h-3 w-3" />
+            </Button>
+          </Link>
           <Button onClick={() => setIsFormOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             Create Task

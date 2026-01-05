@@ -11,6 +11,7 @@ import {
   CheckSquare, 
   FileText, 
   DollarSign,
+  Calendar,
   LogOut 
 } from 'lucide-react';
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown';
@@ -21,6 +22,7 @@ const navigation = [
   { name: 'Clients', href: '/clients', icon: Users },
   { name: 'Campaigns', href: '/campaigns', icon: Megaphone },
   { name: 'Tasks', href: '/tasks', icon: CheckSquare },
+  { name: 'Gantt Chart', href: '/tasks/gantt', icon: Calendar },
   { name: 'Invoices', href: '/invoices', icon: FileText },
   { name: 'Expenses', href: '/expenses', icon: DollarSign },
 ];

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Gantt from 'frappe-gantt';
+import 'frappe-gantt/dist/frappe-gantt.css';
 import { Task } from '@/hooks/useTasks';
 import { format } from 'date-fns';
 
@@ -93,11 +94,45 @@ export function GanttChart({ tasks }: GanttChartProps) {
         .gantt-container {
           font-family: inherit;
         }
-        .bar-wrapper .bar.urgent {
+        .gantt-container .grid-background {
+          fill: transparent;
+        }
+        .gantt-container .row {
+          fill: transparent;
+        }
+        .gantt-container .row-line {
+          stroke: hsl(var(--border));
+          stroke-width: 1;
+        }
+        .gantt-container .today-highlight {
+          fill: hsl(var(--accent));
+          opacity: 0.2;
+        }
+        .gantt-container .arrow {
+          stroke: hsl(var(--muted-foreground));
+        }
+        .gantt-container .bar-wrapper .bar {
+          fill: hsl(var(--primary));
+        }
+        .gantt-container .bar-wrapper .bar-progress {
+          fill: hsl(var(--primary));
+          opacity: 0.6;
+        }
+        .gantt-container .bar-wrapper .bar-label {
+          fill: hsl(var(--foreground));
+        }
+        .gantt-container .bar-wrapper .bar.urgent {
           fill: #ef4444;
         }
-        .bar-wrapper .bar.high {
+        .gantt-container .bar-wrapper .bar.high {
           fill: #f59e0b;
+        }
+        .gantt-container .lower-text,
+        .gantt-container .upper-text {
+          fill: hsl(var(--muted-foreground));
+        }
+        .gantt-container .header-text {
+          fill: hsl(var(--foreground));
         }
       `}</style>
     </div>
